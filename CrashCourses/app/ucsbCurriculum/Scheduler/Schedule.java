@@ -6,17 +6,17 @@ import ucsbCurriculum.Utility.*;
 
 
 public class Schedule {
-
+	 
     private ArrayList<Course> courses; // ArrayList of lectures
-    private ArrayList<ArrayList<Time>> sections;  // ArrayList of (ArrayList of sections)
-
+    private ArrayList<ArrayList<Time>> sections;  // ArrayList of (ArrayList of sections) 
+    
     public Schedule(){
         courses = new ArrayList<Course>();
         sections = new ArrayList<ArrayList<Time>>();
     }
 
     public static boolean compare(ArrayList<Time> time1, ArrayList<Time> time2) {
-
+      
       if(time1.size() == 0 || time2.size() == 0)
           return true;
 
@@ -33,27 +33,26 @@ public class Schedule {
       else
         return true;
 	}
-
+    
     public void clearSchedule(){
     	while(courses.size() != 0){
     		delete(courses.get(0));
     	}
     }
-
+    
     // if c result in conflicts, then just print a message and return
     public void add(Course c) {
       if(c == null)
         System.out.println("This is not a valid course.");
-
+  
       ArrayList<Time> sectionTime = c.get_sectionTimes();
       for (int i = 0; i < courses.size(); i++) {
         Course temp = courses.get(i);
-        if (temp.equals(c)) {
+        if (temp.equals(c)) {	
           // Only for command line version!!!
           System.out.println("Course already added!!!");
           return;
         }
-
         //if (!Course.compare(temp, c) || !compare(sections.get(i), sectionTime) || !compare(temp.get_lectureTimes(), sectionTime)) {
           // Only for command line version!!!
           //System.out.println("Conflicts detected! This course cannot be add to schedule!");
@@ -64,13 +63,13 @@ public class Schedule {
       courses.add(c);
       sections.add(sectionTime);
     }
-
-
-
+    
+    
+    
     @Override
     public String toString() {
 		String res = "Current Schedule:\n\n";
-
+    		
 	    	for(int i = 0; i < courses.size(); i++)
 	    	{
 	    		Course c = courses.get(i);
@@ -89,8 +88,8 @@ public class Schedule {
 	    	}
 	    	return res;
     }
-
-
+    
+    
 
     //removes course c's information from lecture times and section times array lists
     public void delete(Course c) {
@@ -100,7 +99,7 @@ public class Schedule {
 	    	System.out.println(c.get_id() + " is being deleted.");
 	    	//user should be given some kind of warning - course being deleted because of time conflict/or personal choice
     }
-
+    
     //goes through array list of sections and deletes all section times that have conflicts with other times
     //courses that were added first have higher priority
     //if a course has zero available section times left after comparison, it will be deleted from the list
@@ -116,7 +115,7 @@ public class Schedule {
     			}
     		}
     	}
-
+    	
     	//now check all sections against previous sections
     	//start at 1 because course at position 0 has priority
     	for (int i = 1; i < sections.size(); i++) {
@@ -131,5 +130,5 @@ public class Schedule {
 				}
 			}
 		}
-	}
+	}    
 }

@@ -1,9 +1,9 @@
 @(title: String, courses: String, schedule: String)
 
 <!DOCTYPE html>
-<html>
 
-<header>
+<html>
+<head>
     <style type="text/css">
         p {white-space: pre;}
     </style>
@@ -17,69 +17,8 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="@routes.Assets.at("stylesheets/proj.css")">
     <script src= "@routes.Assets.at("javascripts/bootstrap.js")"></script>
-    
-    <!--<script type="text/javascript">-->
-    <!--function addlistElement(var s, var id){-->
-    <!--    var x = document.getElementById(id);-->
-    <!--    var e = document.createElement("option");-->
-    <!--}-->
-    
-    <!--function addClassItem(var course){-->
-    <!--    var items = course.split("\n");-->
         
-    <!--    var class = "";-->
-        
-    <!--    for(int i = 0; i < items.length(); i++)-->
-    <!--    {-->
-    <!--        if(class != "" && items[i].charAt(0) != ' ')-->
-    <!--        {-->
-    <!--            var form = document.createElement("form");-->
-    <!--            form.setAttribute('method',"post");-->
-    <!--            form.setAttribute('action',"/addClass");-->
-            
-                <!--var i = document.createElement("input"); //input element, text-->
-    <!--            i.setAttribute('type',"text");-->
-    <!--            i.setAttribute('name', course);-->
-    <!--            i.setArrtibute('value', course);-->
-    <!--            i.setArrtibute('readonly');-->
-                
-                <!--var s = document.createElement("input"); //input element, Submit button-->
-    <!--            s.setAttribute('type',"submit");-->
-    <!--            s.setAttribute('value',"Add");-->
-                
-    <!--            form.appendChild(i);-->
-    <!--            form.appendChild(s);-->
-                
-    <!--            document.getElementsByTagName('info')[0].appendChild(form);-->
-                
-    <!--            class = items[i];-->
-    <!--    }-->
-    <!--    else-->
-    <!--    {-->
-    <!--        class += item[i];-->
-    <!--    }-->
-    <!--    var form = document.createElement("form");-->
-    <!--    form.setAttribute('method',"post");-->
-    <!--    form.setAttribute('action',"/addClass");-->
-            
-        <!--var i = document.createElement("input"); //input element, text-->
-    <!--    i.setAttribute('type',"text");-->
-    <!--    i.setAttribute('name', course);-->
-    <!--    i.setArrtibute('value', course);-->
-    <!--    i.setArrtibute('readonly');-->
-                
-        <!--var s = document.createElement("input"); //input element, Submit button-->
-    <!--    s.setAttribute('type',"submit");-->
-    <!--    s.setAttribute('value',"Add");-->
-                
-    <!--    form.appendChild(i);-->
-    <!--    form.appendChild(s);-->
-                
-    <!--    document.getElementsByTagName('info')[0].appendChild(form);-->
-    <!--}-->
-    <!--</script>-->
-        
-</header>
+</head>
 
 <body>
     <nav class="navbar navbar-inverse">
@@ -232,4 +171,4 @@
      <p>@(schedule)</p>
     </div>
   </body>
-</html> }
+</html> 
