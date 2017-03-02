@@ -45,4 +45,12 @@ public class Application extends Controller {
         scheduler.add(scraper.get_course_by_name(res));
         return ok(views.html.res.render("Play", "", scheduler.toString()));
     }
+    
+    public Result deleteClass(){
+        DynamicForm in = formFactory.form().bindFromRequest();
+        String res = in.get("content");
+        System.out.println(res);
+        scheduler.delete(scraper.get_course_by_name(res));
+        return ok(views.html.res.render("Play", "", scheduler.toString()));
+    }
 }

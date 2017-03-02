@@ -20,3 +20,5 @@ GET     /assets/*file               controllers.Assets.at(path="/public", file)
 POST    /postForm                   controllers.Application.postForm()
 
 POST    /addClass                   controllers.Application.addClass()
+
+POST    /deleteClass                controllers.Application.deleteClass()
