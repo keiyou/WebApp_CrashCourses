@@ -55,8 +55,8 @@ public class Util {
           addedmin = Character.getNumericValue(a_char);
           minutes = Character.getNumericValue(b_char);
           more = Character.getNumericValue(c_char);
-          time = (12*60) + (addedmin * 60) + (minutes*10) + (more
-					t[i]=time;
+          time = (12*60) + (addedmin * 60) + (minutes*10) + more;
+		  t[i]=time;  
         }
         else if (tab[i].length() == 7) {
           hi = tab[i];
