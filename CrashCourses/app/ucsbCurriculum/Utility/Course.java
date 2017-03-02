@@ -85,9 +85,3 @@ public class Course {
 		return "something";
 	}
 }
-
-
-
-
-
-
