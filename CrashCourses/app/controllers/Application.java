@@ -41,6 +41,17 @@ public class Application extends Controller {
     public Result addClass(){
         DynamicForm in = formFactory.form().bindFromRequest();
         String res = in.get("content");
+        res = res.replaceAll("\\s","");
+        res = res.toUpperCase();
+        res += " ";
+        for(int i = 0; i < res.length(); i++)
+        {
+            if(Character.isDigit(res.charAt(i)))
+            {
+                res = res.substring(0, i) + " " + res.substring(i, res.length());
+                break;
+            }
+        }
         System.out.println(res);
         scheduler.add(scraper.get_course_by_name(res));
         return ok(views.html.res.render("Play", "", scheduler.toString()));
@@ -49,7 +60,17 @@ public class Application extends Controller {
     public Result deleteClass(){
         DynamicForm in = formFactory.form().bindFromRequest();
         String res = in.get("content");
-        System.out.println(res);
+        res = res.replaceAll("\\s","");
+        res = res.toUpperCase();
+        res += " ";
+        for(int i = 0; i < res.length(); i++)
+        {
+            if(Character.isDigit(res.charAt(i)))
+            {
+                res = res.substring(0, i) + " " + res.substring(i, res.length());
+                break;
+            }
+        }
         scheduler.delete(scraper.get_course_by_name(res));
         return ok(views.html.res.render("Play", "", scheduler.toString()));
     }
