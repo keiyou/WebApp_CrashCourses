@@ -10,9 +10,11 @@ import play.data.FormFactory;
 import views.html.*;
 
 import javax.inject.*;
+import java.util.*;
 
 import ucsbCurriculum.CourseScraper.*;
 import ucsbCurriculum.Scheduler.*;
+import ucsbCurriculum.Utility.ConstraintTime;
 
 public class Application extends Controller {
     
@@ -29,49 +31,68 @@ public class Application extends Controller {
     
     public Result postForm(){
         Form<SearchRequest> requestForm = formFactory.form(SearchRequest.class);
-        if(requestForm.hasErrors()){
-            System.out.println("caocaocoaocaocoac");
-        }
         SearchRequest request = requestForm.bindFromRequest().get();
         System.out.println(request.department);
         String res = scraper.getCourseListFor(request.department, request.quarter, request.level);
-        return ok(views.html.res.render("Play", res, ""));
+        return ok(views.html.res.render("Play", res, scheduler.toString()));
+    }
+    
+    public Result addConstraints(){
+        Form<ConstraintTime> requestForm = formFactory.form(ConstraintTime.class);
+        ConstraintTime request = requestForm.bindFromRequest().get();
+        String startTime = request.startTime;
+        String endTime = request.endTime;
+        scheduler.setOnlySectionsAfter(startTime);
+        scheduler.setOnlySectionsBefote(endTime);
+        return ok(views.html.res.render("Play", "", scheduler.toString()));
     }
     
     public Result addClass(){
-        DynamicForm in = formFactory.form().bindFromRequest();
-        String res = in.get("content");
-        res = res.replaceAll("\\s","");
-        res = res.toUpperCase();
-        res += " ";
-        for(int i = 0; i < res.length(); i++)
-        {
-            if(Character.isDigit(res.charAt(i)))
+        try{
+            DynamicForm in = formFactory.form().bindFromRequest();
+            String res = in.get("content");
+            res = res.replaceAll("\\s","");
+            res = res.toUpperCase();
+            res += " ";
+            for(int i = 0; i < res.length(); i++)
             {
-                res = res.substring(0, i) + " " + res.substring(i, res.length());
-                break;
+                if(Character.isDigit(res.charAt(i)))
+                {
+                    res = res.substring(0, i) + " " + res.substring(i, res.length());
+                    break;
+                }
             }
+            System.out.println(res);
+            scheduler.add(scraper.get_course_by_name(res));
+            return ok(views.html.res.render("Play", "", scheduler.toString()));
+        }catch(NullPointerException e){
+            return ok("Wrong input");
         }
-        System.out.println(res);
-        scheduler.add(scraper.get_course_by_name(res));
-        return ok(views.html.res.render("Play", "", scheduler.toString()));
     }
     
     public Result deleteClass(){
-        DynamicForm in = formFactory.form().bindFromRequest();
-        String res = in.get("content");
-        res = res.replaceAll("\\s","");
-        res = res.toUpperCase();
-        res += " ";
-        for(int i = 0; i < res.length(); i++)
-        {
-            if(Character.isDigit(res.charAt(i)))
+        try{
+            DynamicForm in = formFactory.form().bindFromRequest();
+            String res = in.get("content");
+            res = res.replaceAll("\\s","");
+            res = res.toUpperCase();
+            res += " ";
+            for(int i = 0; i < res.length(); i++)
             {
-                res = res.substring(0, i) + " " + res.substring(i, res.length());
-                break;
+                if(Character.isDigit(res.charAt(i)))
+                {
+                    res = res.substring(0, i) + " " + res.substring(i, res.length());
+                    break;
+                }
             }
+            scheduler.delete(scraper.get_course_by_name(res));
+            return ok(views.html.res.render("Play", "", scheduler.toString()));
+        }catch(NullPointerException e){
+            return ok("wrong inut");
         }
-        scheduler.delete(scraper.get_course_by_name(res));
-        return ok(views.html.res.render("Play", "", scheduler.toString()));
+    }
+    
+    public Result showSchdule(){
+        return ok(views.html.schdule.render("play"));
     }
 }

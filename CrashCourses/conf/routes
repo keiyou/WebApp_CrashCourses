@@ -22,3 +22,7 @@ POST    /postForm                   controllers.Application.postForm()
 POST    /addClass                   controllers.Application.addClass()
 
 POST    /deleteClass                controllers.Application.deleteClass()
+
+POST    /showSchedule               controllers.Application.showSchdule()
+
+POST    /addConstraints             controllers.Application.addConstraints()
