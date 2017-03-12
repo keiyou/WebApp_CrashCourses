@@ -40,10 +40,12 @@ public class Application extends Controller {
     public Result addConstraints(){
         Form<ConstraintTime> requestForm = formFactory.form(ConstraintTime.class);
         ConstraintTime request = requestForm.bindFromRequest().get();
-        String startTime = request.startTime;
-        String endTime = request.endTime;
-        scheduler.setOnlySectionsAfter(startTime);
-        scheduler.setOnlySectionsBefote(endTime);
+        String start = request.startTime;
+        String end = request.endTime;
+        scheduler.setOnlySectionsAfter(start);
+        scheduler.setOnlySectionsBefore(end);
+        scheduler.deleteConflicts();
+        scheduler.deleteRestraintConflicts();
         return ok(views.html.res.render("Play", "", scheduler.toString()));
     }
     
@@ -64,6 +66,7 @@ public class Application extends Controller {
             }
             System.out.println(res);
             scheduler.add(scraper.get_course_by_name(res));
+            scheduler.deleteConflicts();
             return ok(views.html.res.render("Play", "", scheduler.toString()));
         }catch(NullPointerException e){
             return ok("Wrong input");
